@@ -6,6 +6,11 @@ name = "pypi"
 [packages]
 flake8 = "*"
 black = "*"
+django-revproxy = "*"
+django = "*"
+django-environ = "*"
+django-extensions = "*"
+whitenoise = "*"
 
 [dev-packages]
 
