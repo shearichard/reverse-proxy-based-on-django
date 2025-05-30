@@ -1,7 +1,7 @@
 # 
 
 ## Summary
-Some experiments with [django-revproxy](https://django-revproxy.readthedocs.io/en/latest/index.html).
+Some experiments with [django-revproxy](https://django-revproxy.readthedocs.io/en/latest/index.html) , the repos for the django-revproxy is [here](https://github.com/jazzband/django-revproxy).
 
 ## Virtualenv Management
 [pipenv](https://pipenv.pypa.io/en/latest/) is in use as the virtualenv management tool.
