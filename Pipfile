@@ -11,6 +11,7 @@ django = "*"
 django-environ = "*"
 django-extensions = "*"
 whitenoise = "*"
+flask = "*"
 
 [dev-packages]
 
