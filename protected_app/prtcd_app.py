@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, render_template
 
+DISPLAY_ALL_ROUTES_ON_CONSOLE = False
+
 app = Flask(__name__)
 
 # Route for the root URL
@@ -63,9 +65,11 @@ if __name__ == '__main__':
     app.run(debug=True)
 '''
 if __name__ == '__main__':
-    with app.app_context():
-        print("Available routes:")
-        for rule in app.url_map.iter_rules():
-            print(f"{rule.endpoint}: {rule.rule} [{', '.join(rule.methods)}]")
+    if DISPLAY_ALL_ROUTES_ON_CONSOLE:
+        with app.app_context():
+            print("Available routes:")
+            for rule in app.url_map.iter_rules():
+                print(f"{rule.endpoint}: {rule.rule} [{', '.join(rule.methods)}]")
+
     app.run(debug=True)
 
