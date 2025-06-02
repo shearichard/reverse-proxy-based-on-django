@@ -1,11 +1,14 @@
 import sqlite3
-from flask import Flask, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, g
+import logging
+import uuid
 
 DISPLAY_ALL_ROUTES_ON_CONSOLE = False
 
 app = Flask(__name__)
 
-
+# Configure logging
+logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 # Function to get a database connection
 def get_db_connection():
@@ -13,6 +16,27 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row  # This allows us to return rows as dictionaries
     return conn
 
+@app.before_request
+def log_request_info():
+    # Generate a unique request ID
+    request_id = str(uuid.uuid4())
+    g.request_id = request_id  # Store it in Flask's global context
+    logging.info(f'Request ID: {request_id} - Request Headers: {request.headers}')
+    logging.info(f'Request ID: {request_id} - Request Body: {request.get_data(as_text=True)}')
+    logging.info(f'Request ID: {request_id} - Request Method: {request.method}')
+    logging.info(f'Request ID: {request_id} - Request Path: {request.path}')
+
+@app.after_request
+def log_response_info(response):
+    request_id = g.request_id  # Retrieve the request ID
+    logging.info(f'Request ID: {request_id} - Response Status: {response.status}')
+    logging.info(f'Request ID: {request_id} - Response Headers: {response.headers}')
+    return response
+
+
+@app.route('/example', methods=['GET', 'POST'])
+def example():
+    return jsonify(message="This is an example response.")
 
 # Route for the root URL
 @app.route('/', methods=['GET'])
