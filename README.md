@@ -30,7 +30,18 @@ Quit the server with CONTROL-C.
 ```
 
 ### Using the proxy
-Requests made to http://127.0.0.1:8000 will be passed onto the application app sitting behind the proxy.
+Requests made to http://127.0.0.1:8000 will be passed onto the application app sitting behind the proxy, for example ...
+
+```
+$ curl  -L http://127.0.0.1:8000/api/v1/country/2
+{
+  "area_sq_km": 50000,
+  "country_iso_code": "USA",
+  "id": 2,
+  "population": 1000000
+}
+```
+
  
 ## Virtualenv Management
 [pipenv](https://pipenv.pypa.io/en/latest/) is in use as the virtualenv management tool.
