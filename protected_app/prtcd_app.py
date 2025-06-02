@@ -1,8 +1,18 @@
+import sqlite3
 from flask import Flask, jsonify, render_template
 
 DISPLAY_ALL_ROUTES_ON_CONSOLE = False
 
 app = Flask(__name__)
+
+
+
+# Function to get a database connection
+def get_db_connection():
+    conn = sqlite3.connect('../db.sqlite3')  # Replace with your database file
+    conn.row_factory = sqlite3.Row  # This allows us to return rows as dictionaries
+    return conn
+
 
 # Route for the root URL
 @app.route('/', methods=['GET'])
@@ -27,12 +37,29 @@ def city_delete(pk):
 # Route for /api/v1/country/
 @app.route('/api/v1/country/', methods=['GET'])
 def country_list():
-    return jsonify({}), 200  # HTTP 200 OK
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM assidu_country")
+    countries = cursor.fetchall()
+    conn.close()
+
+    # Convert the rows to a list of dictionaries
+    country_list = [dict(row) for row in countries]
+    return jsonify(country_list), 200  # HTTP 200 OK
 
 # Route for /api/v1/country/<int:pk>/
 @app.route('/api/v1/country/<int:pk>/', methods=['GET'])
 def country_detail(pk):
-    return jsonify({}), 200  # HTTP 200 OK
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM assidu_country WHERE id = ?", (pk,))
+    country = cursor.fetchone()
+    conn.close()
+
+    if country is None:
+        return jsonify({"error": "Country not found"}), 404  # HTTP 404 Not Found
+
+    return jsonify(dict(country)), 200  # HTTP 200 OK
 
 # Route for /api/v1/country/<int:pk>/delete/
 @app.route('/api/v1/country/<int:pk>/delete/', methods=['DELETE'])
