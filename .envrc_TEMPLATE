@@ -1,3 +1,7 @@
 # This file is a template of the real .envrc to demonstrate the form of that file (which is not committed)
 # Django Secret Key
 export REVPROXY_SECRET_KEY = 'abc..........xyz'
+
+# Protected App User 1
+export REVPROXY_PAPP_USER_UID_1 = "foouser@example.com"
+export REVPROXY_PAPP_USER_PWD_1 = "def............qpr"
