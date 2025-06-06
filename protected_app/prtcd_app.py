@@ -7,6 +7,7 @@ DISPLAY_ALL_ROUTES_ON_CONSOLE = False
 
 app = Flask(__name__)
 
+'''
 # Configure logging
 logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
@@ -34,6 +35,7 @@ def log_response_info(response):
     return response
 
 
+'''
 @app.route('/example', methods=['GET', 'POST'])
 def example():
     return jsonify(message="This is an example response.")
