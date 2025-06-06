@@ -19,8 +19,10 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import re_path
 from core.views import TestProxyView
+from users.views import CustomLoginView
 
 urlpatterns = [
+    path('login/', CustomLoginView.as_view(), name='login'),
     path("admin/", admin.site.urls),
     re_path(r'(?P<path>.*)', TestProxyView.as_view()),
 ]

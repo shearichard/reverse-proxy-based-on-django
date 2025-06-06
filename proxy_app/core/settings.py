@@ -5,6 +5,8 @@ Django settings for core project.
 import os
 from pathlib import Path
 
+from django.core.exceptions import ImproperlyConfigured
+
 
 ###################################################################################
 def get_env_variable(var_name):
@@ -132,4 +134,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Specify the custom user class for the purposes of authorisation
 AUTH_USER_MODEL = "users.CustomUser"
+
+# Send users to home page after logon
+LOGIN_REDIRECT_URL = '/'
 
